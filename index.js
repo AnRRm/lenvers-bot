@@ -58,8 +58,8 @@ function getweatherpicture(description)
 function getGreetingReply(req, res) {
 	
 	var userName = req.body.conversation.participant_data.userName;
-	var splitedName = userName.split(" ");
-	var firstName = splitedName[0];
+	//var splitedName = userName.split(" ");
+	//var firstName = splitedName[0];
 	res.json({
 	replies: 
 	[
@@ -71,9 +71,9 @@ function getGreetingReply(req, res) {
 function getGoodbyeReply(req, res) 
 {
 	var userName = req.body.conversation.participant_data.userName;
-	var splitedName = userName.split(" ");
-	var firstName = splitedName[0];
-	console.log(firstName);
+	//var splitedName = userName.split(" ");
+	//var firstName = splitedName[0];
+	//console.log(firstName);
 	res.json({
 	replies: 
 	[
