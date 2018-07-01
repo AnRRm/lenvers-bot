@@ -1,7 +1,7 @@
 {
-  "name": "L'envers Marrakech Chatbot",
+  "name": "lenvers-marrakech-chatbot",
   "version": "1.0.0",
-  "description": "API dedicated for L'envers Marrakech",
+  "description": "API dedicated for Lenvers Marrakech",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
