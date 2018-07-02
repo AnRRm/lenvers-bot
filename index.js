@@ -1,6 +1,6 @@
 ﻿const express = require('express');
 const bodyParser = require('body-parser');
-const dbMenu = require('./pokedex.json');
+const dbMenu = require('./menu.json');
 
 const app = express();
 app.use(bodyParser.json());
