@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+	"category": "drink",
+	"type": "beer",
+	"name": "Speciale Flag",
+	"price": 20
+  },
+  {
+    "id": 2,
+	"category": "drink",
+	"type": "beer",
+	"name": "Heineken",
+	"price": 25
+  },
+  {
+    "id": 3,
+	"category": "drink",
+	"type": "beer",
+	"name": "Casablanca",
+	"price": 35
+  },
+  {
+    "id": 4,
+	"category": "drink",
+	"type": "beer",
+	"name": "Corona",
+	"price": 40
+  },
+  {
+    "id": 5,
+	"category": "drink",
+	"type": "beer",
+	"name": "Budweiser",
+	"price": 40
+  },
+  {
+    "id": 6,
+	"category": "drink",
+	"type": "vin",
+	"name": "Verre de Vin",
+	"price": 25
+  },
+  {
+    "id": 7,
+	"category": "drink",
+	"type": "vin",
+	"name": "Vin",
+	"price": 35
+  },
+  {
+    "id": 8,
+	"category": "drink",
+	"type": "cocktail",
+	"name": "Martini",
+	"price": 60
+  },
+  {
+    "id": 9,
+	"category": "drink",
+	"type": "cocktail",
+	"name": "Margarita",
+	"price": 60
+  },
+  {
+    "id": 10,
+	"category": "drink",
+	"type": "cocktail",
+	"name": "Bloody Mary",
+	"price": 60
+  },
+  {
+    "id": 10,
+	"category": "drink",
+	"type": "mojito",
+	"name": "Virgin mojito",
+	"price": 50
+  },
+]

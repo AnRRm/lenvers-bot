@@ -14,6 +14,11 @@ app.post('/actualitesportive',		getActualiteSportive);
 app.post('/actualiteculturelle',	getActualiteCulturelle);		// Currently not in use
 app.post('/actualitedivers',		getActualiteDivers);
 app.post('/athan', 					getAthan);
+app.post('/beer', 					getBeerMenu);
+app.post('/wine', 					getWineMenu);
+app.post('/cocktail', 				getCocktailMenu);
+app.post('/mojito', 				getMojitoMenu);
+
 
 
 app.post('/errors', function (req, res) { 
@@ -24,6 +29,7 @@ app.post('/errors', function (req, res) {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(` :) App is listening on port ${PORT}`));
+
 
 // this function must be moved to utils
 function getweatherpicture(description)
@@ -388,4 +394,45 @@ function getFirstName(string)
 		}
 	}
 	return ret;
+}
+
+function getMojitoMenu(req, res) {
+	
+	res.json({
+	replies: 
+	[
+		{ type: 'text', content: 'Les mojitos: Réponse en construction'  }
+	],
+	});
+}
+
+
+function getCocktailMenu(req, res) {
+	
+	res.json({
+	replies: 
+	[
+		{ type: 'text', content: 'Les cocktails: Réponse en construction'  }
+	],
+	});
+}
+
+function getWineMenu(req, res) {
+	
+	res.json({
+	replies: 
+	[
+		{ type: 'text', content: 'Les vins: Réponse en construction'  }
+	],
+	});
+}
+
+function getBeerMenu(req, res) {
+	
+	res.json({
+	replies: 
+	[
+		{ type: 'text', content: 'Les bieres: Réponse en construction'  }
+	],
+	});
 }
