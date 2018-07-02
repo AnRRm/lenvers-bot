@@ -57,13 +57,11 @@ function getweatherpicture(description)
 
 function getGreetingReply(req, res) {
 	
-	var userName = "Anas";//req.body.conversation.participant_data.userName;
-	//var splitedName = userName.split(" ");
-	//var firstName = splitedName[0];
+	var userName = req.body.conversation.participant_data.userName;
 	res.json({
 	replies: 
 	[
-		{ type: 'text', content: 'Bonjour ' + userName + '  🙂 '  }
+		{ type: 'text', content: 'Bonjour ' + getFirstName(userName) + '  🙂 '  }
 	],
 	});
 }
@@ -71,13 +69,10 @@ function getGreetingReply(req, res) {
 function getGoodbyeReply(req, res) 
 {
 	var userName = req.body.conversation.participant_data.userName;
-	//var splitedName = userName.split(" ");
-	//var firstName = splitedName[0];
-	//console.log(firstName);
 	res.json({
 	replies: 
 	[
-		{ type: 'text', content: 'À bientôt ' + userName + '!' }
+		{ type: 'text', content: 'À bientôt ' + getFirstName(userName) + '!' }
 	],
 	});	
 }
@@ -379,4 +374,18 @@ function getAthan(req,res)
 function capitalizeFirstLetter(string) 
 {
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getFirstName(string)
+{
+	var parts = string.split(" ");
+	var ret = "";
+	for (var i=0; i< parts.length; i++)
+	{
+		if(i < parts.length - 1)
+		{
+			ret += parts[i];
+		}
+	}
+	return ret;
 }
