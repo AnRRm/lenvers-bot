@@ -37,14 +37,14 @@
   {
     "id": 6,
 	"category": "drink",
-	"type": "vin",
+	"type": "wine",
 	"name": "Verre de Vin",
 	"price": 25
   },
   {
     "id": 7,
 	"category": "drink",
-	"type": "vin",
+	"type": "wine",
 	"name": "Vin",
 	"price": 35
   },

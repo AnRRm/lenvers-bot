@@ -1,5 +1,6 @@
 ﻿const express = require('express');
 const bodyParser = require('body-parser');
+const dbMenu = require('./pokedex.json');
 
 const app = express();
 app.use(bodyParser.json());
@@ -398,6 +399,8 @@ function getFirstName(string)
 
 function getMojitoMenu(req, res) {
 	
+	findProductByType("mojito");
+	
 	res.json({
 	replies: 
 	[
@@ -409,6 +412,8 @@ function getMojitoMenu(req, res) {
 
 function getCocktailMenu(req, res) {
 	
+	findProductByType("cocktail");
+	
 	res.json({
 	replies: 
 	[
@@ -418,6 +423,8 @@ function getCocktailMenu(req, res) {
 }
 
 function getWineMenu(req, res) {
+	
+	findProductByType("wine");
 	
 	res.json({
 	replies: 
@@ -429,6 +436,8 @@ function getWineMenu(req, res) {
 
 function getBeerMenu(req, res) {
 	
+	findProductByType("beer");
+	
 	res.json({
 	replies: 
 	[
@@ -436,3 +445,12 @@ function getBeerMenu(req, res) {
 	],
 	});
 }
+
+function findProductByType(type) {
+  const data = db.find(p => p.type === type);
+  if (!data) {
+    return null;
+  }
+  console.log(data.length);
+  return data;
+};
