@@ -9,17 +9,15 @@ app.use(bodyParser.json());
 app.post('/weather',				getWeather);
 app.post('/greetings', 				getGreetingReply);
 app.post('/goodbye', 				getGoodbyeReply);
-app.post('/actualitesante',			getActualiteSante);				// Currently not in use
-app.post('/actualiteeconomique',	getActualiteEconomique);
-app.post('/actualitesportive',		getActualiteSportive);
-app.post('/actualiteculturelle',	getActualiteCulturelle);		// Currently not in use
-app.post('/actualitedivers',		getActualiteDivers);
-app.post('/athan', 					getAthan);
 app.post('/beer', 					getBeerMenu);
 app.post('/wine', 					getWineMenu);
 app.post('/cocktail', 				getCocktailMenu);
 app.post('/mojito', 				getMojitoMenu);
-
+app.post('/planches', 				getPlanchesMenu);
+app.post('/bagels', 				getBagelsMenu);
+app.post('/tacos', 					getTacosMenu);
+app.post('/taquitos', 				getTaquitosMenu);
+app.post('/plates', 				getPlatesMenu);
 
 
 app.post('/errors', function (req, res) { 
@@ -116,7 +114,7 @@ function getWeather(req, res) {
 	{
 		res.json({
 		replies: [
-		{ type: 'text', content: 'Désolé Je n\'arrive pas vous indiquer la météo à ' + capitalizeFirstLetter(location.raw) + ' le ' + datetime.raw}
+		{ type: 'text', content: 'Désolé Je n\'arrive pas vous indiquer la météo à ' + location.raw + ' le ' + datetime.raw}
 		],
 		});
 	}
@@ -142,315 +140,193 @@ function getWeather(req, res) {
 	});	
 }
 
-// TODO: This function is not in user actualy
-function getActualiteSante(req,res)
-{
-	
-	const unirest = require('unirest');
-	const replies = [];
-	
-	// NEWS API URL
-	const url = 'https://newsapi.org/v2/top-headlines?country=ma&category=health&apiKey=' + process.env.NEWSAPI_TOKEN;
-
-	// send http get request
-	unirest.get(url)
-	.send()
-	.end(response => {
-
-		// Loop on all the found news / provide titles and urls
-		if (response.ok) {
-			const MaxCount = Math.min(response.body.totalResults,4);
-			for (var index = 0; index < MaxCount; index++) 
-			{
-				if(response.body.articles[index].urlToImage != null)
-					replies.push({ type: 'picture', content: response.body.articles[index].urlToImage });
-				if(response.body.articles[index].title != null)
-					replies.push({ type: 'text', content: response.body.articles[index].title });
-				if(response.body.articles[index].url != null)
-					replies.push({ type: 'text', content: response.body.articles[index].url });
-			}
-			res.json({replies: replies});
-		} 
-		else 
-		{
-			
-		}
-
-	})
-}
-
-function getActualiteEconomique(req,res)
-{
-	const unirest = require('unirest');
-	const replies = [];
-
-	// NEWS API URL
-	const url = 'https://newsapi.org/v2/top-headlines?country=ma&category=business&apiKey=' + process.env.NEWSAPI_TOKEN;
-
-	// send http get request
-	unirest.get(url)
-	.send()
-	.end(response => {
-
-		// Loop on all the found news / provide titles and urls
-		if (response.ok) {
-			const MaxCount = Math.min(response.body.totalResults,4);
-			for (var index = 0; index < MaxCount; index++) 
-			{
-				if(response.body.articles[index].urlToImage != null)
-					replies.push({ type: 'picture', content: response.body.articles[index].urlToImage });
-				if(response.body.articles[index].title != null)
-					replies.push({ type: 'text', content: response.body.articles[index].title });
-				if(response.body.articles[index].url != null)
-					replies.push({ type: 'text', content: response.body.articles[index].url });
-			}
-			res.json({replies: replies});
-		} 
-		else 
-		{
-			
-		}
-
-	})
-}
-
-function getActualiteSportive(req,res)
-{
-	const unirest = require('unirest');
-	const replies = [];
-
-	// NEWS API URL
-	const url = 'https://newsapi.org/v2/top-headlines?country=ma&category=sports&apiKey=' + process.env.NEWSAPI_TOKEN;
-
-	// send http get request
-	unirest.get(url)
-	.send()
-	.end(response => {
-
-		// Loop on all the found news / provide titles and urls
-		if (response.ok) {
-			const MaxCount = Math.min(response.body.totalResults,4);
-			for (var index = 0; index < MaxCount; index++) 
-			{
-				if(response.body.articles[index].urlToImage != null)
-					replies.push({ type: 'picture', content: response.body.articles[index].urlToImage });
-				if(response.body.articles[index].title != null)
-					replies.push({ type: 'text', content: response.body.articles[index].title });
-				if(response.body.articles[index].url != null)
-					replies.push({ type: 'text', content: response.body.articles[index].url });
-			}
-			
-			res.json({replies: replies});
-		} 
-		else 
-		{
-			
-		}
-
-	})
-}
-
-function getActualiteCulturelle(req,res)
-{
-	const unirest = require('unirest');
-	const replies = [];
-
-	// NEWS API URL
-	const url = 'https://newsapi.org/v2/top-headlines?country=ma&category=entertainment&apiKey=' + process.env.NEWSAPI_TOKEN;
-
-	// send http get request
-	unirest.get(url)
-	.send()
-	.end(response => {
-
-		// Loop on all the found news / provide titles and urls
-		if (response.ok) {
-			const MaxCount = Math.min(response.body.totalResults,4);
-			for (var index = 0; index < MaxCount; index++) 
-			{
-				if(response.body.articles[index].urlToImage != null)
-					replies.push({ type: 'picture', content: response.body.articles[index].urlToImage });
-				if(response.body.articles[index].title != null)
-					replies.push({ type: 'text', content: response.body.articles[index].title });
-				if(response.body.articles[index].url != null)
-					replies.push({ type: 'text', content: response.body.articles[index].url });
-			}
-			res.json({replies: replies});
-		} 
-		else 
-		{
-			
-		}
-
-	})
-
-}
-
-function getActualiteDivers(req,res)
-{
-	const unirest = require('unirest');
-	const replies = [];
-
-	// NEWS API URL
-	const url = 'https://newsapi.org/v2/top-headlines?country=ma&category=technology&apiKey=' + process.env.NEWSAPI_TOKEN;
-
-	// send http get request
-	unirest.get(url)
-	.send()
-	.end(response => {
-
-		// Loop on all the found news / provide titles and urls
-		if (response.ok) {
-			const MaxCount = Math.min(response.body.totalResults,4);
-			for (var index = 0; index < MaxCount; index++) 
-			{
-				if(response.body.articles[index].urlToImage != null)
-					replies.push({ type: 'picture', content: response.body.articles[index].urlToImage });
-				if(response.body.articles[index].title != null)
-					replies.push({ type: 'text', content: response.body.articles[index].title });
-				if(response.body.articles[index].url != null)
-					replies.push({ type: 'text', content: response.body.articles[index].url });
-			}
-			res.json({replies: replies});
-		} 
-		else 
-		{
-			
-		}
-
-	})
-}
-
-function getAthan(req,res)
-{
-	
-	const unirest = require('unirest');
-	const location = req.body.conversation.memory.location;
-	const datetime = req.body.conversation.memory.datetime;
-	
-	const replies = [];
-	replies.push({ type: 'picture', content:'http://viaimage2.viafrance.com/img/img-1000x1000/2/8/3/283273_1000x1000.jpg'});
-	var googleAPIurl = 'https://maps.googleapis.com/maps/api/geocode/json?language=fr&address=' + location.raw + '&key=' + process.env.GMAPAPI_KEY;
-	unirest.get(googleAPIurl)
-    .send()
-    .end(response => {
-		if (response.ok) {
-			
-			const d = new Date(datetime.iso);
-			const timeStamp = d.getTime()/1000;
-			
-			if(response.body.results[0] != undefined && response.body.results[0].geometry != undefined)
-			{
-				const lat = response.body.results[0].geometry.location.lat;
-				const lng = response.body.results[0].geometry.location.lng;
-				const athanurl = 'http://api.aladhan.com/timings/' + timeStamp + '?latitude=' + lat + '&longitude=' + lng + '&method=2';
-				unirest.get(athanurl)
-				.send()
-				.end(response => {
-
-					if (response.status == 200) 
-					{
-						
-						replies.push({ type: 'text', content:'Les horaires de prières le '+ d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear() + ' à ' + capitalizeFirstLetter(location.raw) + ':'});
-						replies.push({ type: 'text', content:'Salat Al-Fajr: ' + response.body.data.timings.Fajr});
-						replies.push({ type: 'text', content:'Salat Al-Dhuhr: ' + response.body.data.timings.Dhuhr});
-						replies.push({ type: 'text', content:'Salat Al-Asr: ' + response.body.data.timings.Asr});
-						replies.push({ type: 'text', content:'Salat Al-Maghrib: ' + response.body.data.timings.Maghrib});
-						replies.push({ type: 'text', content:'Salat Al-Isha: ' + response.body.data.timings.Isha});
-						replies.push({ type: 'text', content:'تقبل الله صلاتكم بمزيد من الاجر والثواب'});
-						res.json({replies: replies});
-					}
-				}
-
-				)
-			}
-			else
-			{
-				    res.json({
-					replies: [
-						{ type: 'text', content: 'je n\'arrive pas à trouver les horaires de prières pour la ville que vous avez indiqué :(, désolé' },
-					],
-				});
-				}
-			}
-	}
-	)
-}
-
-// TODO this function must be moved to Utils
-function capitalizeFirstLetter(string) 
-{
-	return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function getFirstName(string)
-{
-	var parts = string.split(" ");
-	var ret = "";
-	for (var i=0; i< parts.length; i++)
-	{
-		if(i < parts.length - 1)
-		{
-			ret += parts[i];
-		}
-	}
-	return ret;
-}
-
 function getMojitoMenu(req, res) {
 	
-	findProductByType("mojito");
+	var products = findProductByType("mojito");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});	
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
 	
-	res.json({
-	replies: 
-	[
-		{ type: 'text', content: 'Les mojitos: Réponse en construction'  }
-	],
-	});
+	res.json({replies: replies});
 }
 
 
 function getCocktailMenu(req, res) {
 	
-	findProductByType("cocktail");
+	var products = findProductByType("cocktail");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
 	
-	res.json({
-	replies: 
-	[
-		{ type: 'text', content: 'Les cocktails: Réponse en construction'  }
-	],
-	});
+	res.json({replies: replies});
 }
 
 function getWineMenu(req, res) {
 	
-	findProductByType("wine");
+	var products = findProductByType("wine");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
 	
-	res.json({
-	replies: 
-	[
-		{ type: 'text', content: 'Les vins: Réponse en construction'  }
-	],
-	});
+	res.json({replies: replies});
 }
 
 function getBeerMenu(req, res) {
 	
-	findProductByType("beer");
+	var products = findProductByType("beer");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});	
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
 	
-	res.json({
-	replies: 
-	[
-		{ type: 'text', content: 'Les bieres: Réponse en construction'  }
-	],
-	});
+	res.json({replies: replies});
+	
 }
 
+function getPlanchesMenu(req, res) {
+	
+	var products = findProductByType("planche");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
+	
+	res.json({replies: replies});
+	
+}
+
+function getBagelsMenu(req, res) {
+	
+	var products = findProductByType("bagel");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
+	
+	res.json({replies: replies});
+	
+}
+
+function getTacosMenu(req, res) {
+	
+	var products = findProductByType("tacos");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
+	
+	res.json({replies: replies});
+	
+}
+
+function getTaquitosMenu(req, res) {
+	
+	var products = findProductByType("taquitos");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
+	
+	res.json({replies: replies});
+	
+}
+
+
+function getPlatesMenu(req, res) {
+	
+	var products = findProductByType("plate");
+	const replies = [];
+	if(products == null)
+	{
+		replies.push({ type: 'text', content: 'Oups je ne sais pas vous répondre :s'});
+	}
+	else
+	{
+		for (var index = 0; index < products.length; index++) 
+		{
+			replies.push({ type: 'text', content: products[index].name + ' - ' +  products[index].price + ' Dhs' });
+		}
+	}
+	
+	res.json({replies: replies});
+	
+}
+
+
+
 function findProductByType(type) {
-  const data = db.find(p => p.type === type);
+  var data = dbMenu.filter(function(item) {
+  return item.type == type;
+});
   if (!data) {
     return null;
   }
-  console.log(data.length);
   return data;
 };

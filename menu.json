@@ -75,5 +75,194 @@
 	"type": "mojito",
 	"name": "Virgin mojito",
 	"price": 50
+  },
+  {
+    "id": 11,
+	"category": "food",
+	"type": "planche",
+	"name": "Farci Au Fromage",
+	"price": 40
+  },
+  {
+    "id": 12,
+	"category": "food",
+	"type": "planche",
+	"name": "Quiches du Marché",
+	"price": 40
+  },
+  {
+    "id": 13,
+	"category": "food",
+	"type": "planche",
+	"name": "Quiches du Marché",
+	"price": 40
+  },
+  {
+    "id": 14,
+	"category": "food",
+	"type": "planche",
+	"name": "Quiches Légumes",
+	"price": 40
+  },
+  {
+    "id": 15,
+	"category": "food",
+	"type": "planche",
+	"name": "Tataki de Saumon",
+	"price": 60
+  },
+  {
+	"id": 16,
+	"category": "food",
+	"type": "planche",
+	"name": "Brochettes Satay",
+	"price": 40
+  },
+  {
+	"id": 17,
+	"category": "food",
+	"type": "planche",
+	"name": "Tortilla Valencienne",
+	"price": 50
+  },
+  {
+	"id": 18,
+	"category": "food",
+	"type": "planche",
+	"name": "Trio de cigares",
+	"price": 40
+  },
+  {
+	"id": 19,
+	"category": "food",
+	"type": "planche",
+	"name": "Rouleaux au four",
+	"price": 50
+  },  
+  {
+	"id": 20,
+	"category": "food",
+	"type": "planche",
+	"name": "Croquettes de camembert",
+	"price": 30
+  }, 
+  {
+	"id": 21,
+	"category": "food",
+	"type": "planche",
+	"name": "Croquettes maison",
+	"price": 25
+  },  
+  {
+	"id": 22,
+	"category": "food",
+	"type": "planche",
+	"name": "Pommes wedges",
+	"price": 25
+  },  
+  {
+	"id": 23,
+	"category": "food",
+	"type": "bagel",
+	"name": "L’envers",
+	"price": 50
+  },
+    {
+	"id": 24,
+	"category": "food",
+	"type": "bagel",
+	"name": "Beirouti ",
+	"price": 60
+  },
+    {
+	"id": 25,
+	"category": "food",
+	"type": "bagel",
+	"name": "Charcut’",
+	"price": 40
+  },
+    {
+	"id": 26,
+	"category": "food",
+	"type": "bagel",
+	"name": "Alaska",
+	"price": 60
+  },
+    {
+	"id": 27,
+	"category": "food",
+	"type": "bagel",
+	"name": "Végy ",
+	"price": 40
+  },
+    {
+	"id": 28,
+	"category": "food",
+	"type": "bagel",
+	"name": "Gourmet ",
+	"price": 70
+  },
+    {
+	"id": 29,
+	"category": "food",
+	"type": "bagel",
+	"name": "Big ",
+	"price": 80
+  },
+  {
+	"id": 30,
+	"category": "food",
+	"type": "tacos",
+	"name": "Mexico",
+	"price": 60
+  },
+  {
+	"id": 31,
+	"category": "food",
+	"type": "tacos",
+	"name": "Gallo",
+	"price": 50
+  },
+  {
+	"id": 32,
+	"category": "food",
+	"type": "tacos",
+	"name": "Tulum",
+	"price": 60
+  },
+    {
+	"id": 33,
+	"category": "food",
+	"type": "taquitos",
+	"name": "Carmen",
+	"price": 50
+  },
+    {
+	"id": 34,
+	"category": "food",
+	"type": "taquitos",
+	"name": "Maya",
+	"price": 45
+  },
+  {
+	"id": 35,
+	"category": "food",
+	"type": "taquitos",
+	"name": "Verde",
+	"price": 50
+  },
+  {
+	"id": 36,
+	"category": "food",
+	"type": "plate",
+	"name": "Assiette de Fromage",
+	"price": 120
+  },
+  {
+	"id": 37,
+	"category": "food",
+	"type": "plate",
+	"name": "Assiette de charcuterie",
+	"price": 120
   }
 ]
