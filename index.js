@@ -337,3 +337,18 @@ function capitalizeFirstLetter(string)
 {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
+function getFirstName(string)
+{
+	var parts = string.split(" ");
+	var ret = "";
+	for (var i=0; i< parts.length; i++)
+	{
+		if(i < parts.length - 1)
+		{
+			ret += parts[i];
+		}
+	}
+	return ret;
+}
