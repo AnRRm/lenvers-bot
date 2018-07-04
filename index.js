@@ -330,3 +330,10 @@ function findProductByType(type) {
   }
   return data;
 };
+
+
+// TODO this function must be moved to Utils
+function capitalizeFirstLetter(string) 
+{
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
