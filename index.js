@@ -1,12 +1,12 @@
 ﻿const express = require('express');
 const bodyParser = require('body-parser');
 const dbMenu = require('./menu.json');
+const dbProgram = require('./program.json');
 
 const app = express();
 app.use(bodyParser.json());
 
 // Load routes by using express utility
-app.post('/weather',				getWeather);
 app.post('/greetings', 				getGreetingReply);
 app.post('/goodbye', 				getGoodbyeReply);
 app.post('/beer', 					getBeerMenu);
@@ -18,6 +18,8 @@ app.post('/bagels', 				getBagelsMenu);
 app.post('/tacos', 					getTacosMenu);
 app.post('/taquitos', 				getTaquitosMenu);
 app.post('/plates', 				getPlatesMenu);
+app.post('/program', 				getProgram);
+app.post('/weekprogram', 			getWeekProgram);
 
 
 app.post('/errors', function (req, res) { 
@@ -59,6 +61,72 @@ function getweatherpicture(description)
 	return ret;
 }
 
+function getProgram(req, res) {
+	
+	var replies = [];
+	const datetime = req.body.conversation.memory.datetime;
+	var d = new Date(datetime.iso);
+	const weather = require('openweathermap-js');
+		weather.defaults({
+        appid: '681f922539f01fc8d6bd4cd04de6c94a',
+        method: 'name',
+        mode: 'json',
+        units: 'metric',
+        lang: 'fr',
+     });
+	
+	var programHolder = null;
+	programHolder  = dbProgram.filter(function(item) {
+		return (item.date == d.getDate() && item.month == (d.getMonth() + 1));
+	});
+	
+	if(programHolder !=  null)
+	{
+
+		replies.push({ type: 'text', content: 'L\'envers vous propose le ' + d.getDate()+ '/'  + (d.getMonth() + 1) + ' prochain un(e) ' + programHolder[0].event + ' ' + programHolder[0].type + ' animé(e) par ' + 		
+		programHolder[0].artist + ' à partir de ' + programHolder[0].start +  '  🙂 '  });
+		d = new Date(2018,d.getMonth(),d.getDate(),22);
+		var timeStamp = d.getTime()/1000;
+		weather.forecast({
+			location: 'Marrakech',
+			language: 'fr'
+		}, function(err, data) {
+		if (!err) 
+		{									
+			// on OK
+			var weatherHolder = null;
+			if(data.list != undefined)
+				weatherHolder = data.list.find(p => (Math.abs(parseInt(p.dt)-parseInt(timeStamp)) < 5400 ));	
+					
+				if (!weatherHolder) 
+				{
+					res.json({replies: replies});		
+				}
+				else
+				{
+					console.log(weatherHolder);
+					replies.push({ type: 'text', content: 'Toc Toc petite info ;), la météo ce soir là serait: ' + weatherHolder.weather[0].description + ', ' + parseInt(weatherHolder.main.temp) + '°C'});
+					res.json({replies: replies});
+				}
+                 			
+		} 
+		else
+		{
+			
+		res.json({replies: replies});
+		}
+		
+	});	
+	}
+	else
+	{	
+		replies.push({ type: 'text', content: 'un probleme s\'est produit lors de l\'extraction de l\'evenement demandé...désolé!'});
+		res.json({replies: replies});
+		
+	}
+	
+	
+}
 
 function getGreetingReply(req, res) {
 	
@@ -79,64 +147,6 @@ function getGoodbyeReply(req, res)
 	[
 		{ type: 'text', content: 'À bientôt ' + getFirstName(userName) + '!' }
 	],
-	});	
-}
-
-function getWeather(req, res) {
-	
-	const location = req.body.conversation.memory.location;
-	const datetime = req.body.conversation.memory.datetime;
-	const weather = require('openweathermap-js');
-
-	weather.defaults({
-        appid: process.env.OPENWMAP_ID,
-        method: 'name',
-        mode: 'json',
-        units: 'metric',
-        lang: 'fr',
-     });
-	 
-	const location_ = location.raw;
-	var d = new Date(datetime.iso);
-	var timeStamp = d.getTime()/1000;
-
-	weather.forecast({
-        location: location_,
-        language: 'fr'
-    }, function(err, data) {
-	if (!err) 
-	{									
-		// on OK
-		var weatherHolder = null;
-		 if(data.list != undefined)
-			weatherHolder = data.list.find(p => (Math.abs(parseInt(p.dt)-parseInt(timeStamp)) < 5400 ));
-	if (!weatherHolder) 
-	{
-		res.json({
-		replies: [
-		{ type: 'text', content: 'Désolé Je n\'arrive pas vous indiquer la météo à ' + location.raw + ' le ' + datetime.raw}
-		],
-		});
-	}
-	else
-	{
-		res.json({
-			replies: [
-						{ type: 'picture', content: getweatherpicture(weatherHolder.weather[0].description ) },
-						{ type: 'text', content: 'La météo ' + datetime.raw + ' à ' + location.raw + ':' },  
-						{ type: 'text', content: weatherHolder.weather[0].description + ', ' + parseInt(weatherHolder.main.temp) + '°C'  },        
-					],
-				});
-	}		
-    } 
-	else
-	{
-		res.json({
-		replies: [
-					{ type: 'text', content: `Je n'arrive pas vous indiquer la meteo a ${location.raw} le ${datetime.iso}` }
-				],
-		});
-	}
 	});	
 }
 
@@ -318,6 +328,39 @@ function getPlatesMenu(req, res) {
 	res.json({replies: replies});
 	
 }
+
+
+function getWeekProgram(req, res) {
+	
+	
+	const replies = [];
+	var programHolder = null;
+	const currentDate = new Date();
+	programHolder  = dbProgram.filter(function(item) {
+		return (item.date == currentDate.getDate() && item.month == (currentDate.getMonth() + 1));
+	});
+	if(programHolder !=  null)
+	{
+		console.log(programHolder);
+		replies.push({ type: 'text', content: 'Aujourd\'hui'});
+		replies.push({ type: 'text', content: 'un(e)' + programHolder[0].event + ' ' + programHolder[0].type + ' animée par ' + programHolder[0].artist + ' à partir de ' + programHolder[0].start});
+		for(var index = programHolder[0].id + 1  ; index < (programHolder[0].id + 8);index ++)
+		{
+			var NextProgramHolder = null;
+			NextProgramHolder  = dbProgram.filter(function(item) {
+				return (item.id == index);
+			});
+			if(NextProgramHolder != undefined)
+			{
+				replies.push({ type: 'text', content: 'Le ' + NextProgramHolder[0].date + '  /' + NextProgramHolder[0].month});
+		        replies.push({ type: 'text', content: 'un(e)' + NextProgramHolder[0].event + ' ' + NextProgramHolder[0].type + ' animée par ' + NextProgramHolder[0].artist + ' à partir de ' + NextProgramHolder[0].start});
+			}
+		}
+	}
+	res.json({replies: replies});
+	
+}
+
 
 
 
