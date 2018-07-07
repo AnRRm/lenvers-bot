@@ -80,7 +80,8 @@ function getProgram(req, res) {
 		return (item.date == d.getDate() && item.month == (d.getMonth() + 1));
 	});
 	
-	if(programHolder !=  null)
+	console.log(programHolder);
+	if(programHolder[0] !=  null)
 	{
 
 		replies.push({ type: 'text', content: 'L\'envers vous propose le ' + d.getDate()+ '/'  + (d.getMonth() + 1) + ' prochain un(e) ' + programHolder[0].event + ' ' + programHolder[0].type + ' animé(e) par ' + 		
@@ -120,7 +121,7 @@ function getProgram(req, res) {
 	}
 	else
 	{	
-		replies.push({ type: 'text', content: 'un probleme s\'est produit lors de l\'extraction de l\'evenement demandé...désolé!'});
+		replies.push({ type: 'text', content: 'Hmmm il me semble qu\'aucun evenement n\'est programmé pour cette date :/'});
 		res.json({replies: replies});
 		
 	}
@@ -341,10 +342,9 @@ function getWeekProgram(req, res) {
 	});
 	if(programHolder !=  null)
 	{
-		console.log(programHolder);
 		replies.push({ type: 'text', content: 'Aujourd\'hui'});
 		replies.push({ type: 'text', content: 'un(e)' + programHolder[0].event + ' ' + programHolder[0].type + ' animée par ' + programHolder[0].artist + ' à partir de ' + programHolder[0].start});
-		for(var index = programHolder[0].id + 1  ; index < (programHolder[0].id + 8);index ++)
+		for(var index = programHolder[0].id + 1  ; index < (programHolder[0].id + 6);index ++)
 		{
 			var NextProgramHolder = null;
 			NextProgramHolder  = dbProgram.filter(function(item) {
@@ -352,7 +352,7 @@ function getWeekProgram(req, res) {
 			});
 			if(NextProgramHolder != undefined)
 			{
-				replies.push({ type: 'text', content: 'Le ' + NextProgramHolder[0].date + '  /' + NextProgramHolder[0].month});
+			replies.push({ type: 'text', content: 'Le ' + NextProgramHolder[0].date + '-' + NextProgramHolder[0].month + '-2018'});
 		        replies.push({ type: 'text', content: 'un(e)' + NextProgramHolder[0].event + ' ' + NextProgramHolder[0].type + ' animée par ' + NextProgramHolder[0].artist + ' à partir de ' + NextProgramHolder[0].start});
 			}
 		}
