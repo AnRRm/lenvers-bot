@@ -390,7 +390,7 @@ function getFirstName(string)
 	{
 		if(i < parts.length - 1)
 		{
-			ret += parts[i];
+			ret += parts[i] + " ";
 		}
 	}
 	return ret;
